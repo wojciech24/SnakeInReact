@@ -28,6 +28,7 @@ function Game() {
     window.addEventListener('keydown', changeDirection);
     function gameStart(){
         if(running) return;
+        score = 0;
         xVelocity = unitSize;
         yVelocity = 0;
         snake = [
