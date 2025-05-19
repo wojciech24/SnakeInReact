@@ -12,6 +12,7 @@ function Game() {
     const snakeBorder = 'black';
     const unitSize = 25;
     let score = 0;
+    let globalHighScore = 0;
     let running = false;
     let xVelocity = unitSize;
     let yVelocity = 0;
@@ -69,6 +70,10 @@ function Game() {
         function randomFood(max, min)
         {
             const randNum = Math.round((Math.random() * (max - min)+ min) / unitSize) * unitSize;
+            for(let i = 0; i < snake.length; i++)
+            {
+                if(snake[i].x === randNum && snake[i].y === randNum) return randomFood(max, min);
+            }
             return randNum; 
         }
         foodX = randomFood(0, boardWidth - unitSize);
@@ -162,6 +167,7 @@ function Game() {
         }
     };
     function displayGameOver() {
+        if(score > globalHighScore) globalHighScore = score;
         ctx.fillStyle = 'black';
         ctx.font = '50px Arial';
         ctx.textAlign = 'center';
@@ -169,6 +175,7 @@ function Game() {
         ctx.strokeText('KONIEC GRY', boardWidth / 2, boardHeight / 2);
         ctx.font = '25px Arial';
         ctx.fillText(`WYNIK: ${score}`, boardWidth / 2, boardHeight / 2 + 40);
+        ctx.fillText(`NAJWYŻSZY WYNIK: ${globalHighScore}`, boardWidth / 2, boardHeight / 2 + 80);
     }
     
     // #endregion
